@@ -1,43 +1,40 @@
 from xmlrpc.server import SimpleXMLRPCServer
-from threading import Thread, Lock
+from threading import Lock
 import time
 
 class Barbeiro:
     def __init__(self):
-        self.lock = Lock()
+        self.lock = Lock() #pra q apenas um cliente use o barbeiro por vez
 
-    def realizarCorte(self, tipo_corte):
+    def cortarCabelo(self):
+        with self.lock: 
+            print("Barbeiro: Cortando cabelo...")
+            time.sleep(3)  
+            print("Barbeiro: Cabelo cortado!")
+            return "Cabelo cortado com sucesso!"
+
+    def cortarBarba(self):
         with self.lock:
-            if tipo_corte == "cabelo":
-                print("Cortando cabelo...")
-                time.sleep(3)
-                print("Cabelo cortado!")
-                return "Cabelo cortado com sucesso!"
-            elif tipo_corte == "barba":
-                print("Cortando barba...")
-                time.sleep(4)
-                print("Barba cortada!")
-                return "Barba cortada com sucesso!"
-            elif tipo_corte == "bigode":
-                print("Cortando bigode...")
-                time.sleep(5)
-                print("Bigode cortado!")
-                return "Bigode cortado com sucesso!"
-            else:
-                return "Serviço não disponível."
+            print("Barbeiro: Cortando barba...")
+            time.sleep(4) 
+            print("Barbeiro: Barba cortada!")
+            return "Barba cortada com sucesso!"
+
+    def cortarBigode(self):
+        with self.lock:
+            print("Barbeiro: Cortando bigode...")
+            time.sleep(5)  
+            print("Barbeiro: Bigode cortado!")
+            return "Bigode cortado com sucesso!"
 
 def startServidor():
     servidor = SimpleXMLRPCServer(("localhost", 8000), allow_none=True)
-    barbeiro = Barbeiro()
+    barbeiro = Barbeiro() 
+
+    servidor.register_instance(barbeiro) #registrando o barbeiro no servidor p/ q os clientes possam usar os métodos
     
-    servidor.register_function(barbeiro.realizarCorte, "realizarCorte")
-    
-    print("Servidor ativo, aguardando clientes...")
-    
-    for i in range(5):
-        thread = Thread(target=servidor.serve_forever)
-        thread.start()
-        print(f"Thread {i+1} iniciada para atender um cliente.")
+    print("Servidor Barbeiro ativo, aguardando clientes...")
+    servidor.serve_forever()  
 
 if __name__ == "__main__":
     startServidor()
