@@ -8,11 +8,11 @@ def usar_servicos(cliente_id):
     for ciclo in range(20):
         print(f"Cliente {cliente_id}: Iniciando ciclo {ciclo + 1}...")
         
-        print(f"Cliente {cliente_id}: {servidor.cortarCabelo()}")
+        print(f"Cliente {cliente_id}: {servidor.ctCabelo()}")
         
-        print(f"Cliente {cliente_id}: {servidor.cortarBarba()}")
+        print(f"Cliente {cliente_id}: {servidor.ctBarba()}")
         
-        print(f"Cliente {cliente_id}: {servidor.cortarBigode()}")
+        print(f"Cliente {cliente_id}: {servidor.ctBigode()}")
         
         print(f"Cliente {cliente_id}: Ciclo {ciclo + 1} concluído!\n")
 
