@@ -6,35 +6,35 @@ class Barbeiro:
     def __init__(self):
         self.lock = Lock() #pra q apenas um cliente use o barbeiro por vez
 
-    def cortarCabelo(self):
+    def ctCabelo(self):
         with self.lock: 
             print("Barbeiro: Cortando cabelo...")
             time.sleep(3)  
             print("Barbeiro: Cabelo cortado!")
-            return "Cabelo cortado com sucesso!"
+            return "Cabelo cortado!"
 
-    def cortarBarba(self):
+    def ctBarba(self):
         with self.lock:
             print("Barbeiro: Cortando barba...")
             time.sleep(4) 
             print("Barbeiro: Barba cortada!")
-            return "Barba cortada com sucesso!"
+            return "Barba cortado!"
 
-    def cortarBigode(self):
+    def ctBigode(self):
         with self.lock:
             print("Barbeiro: Cortando bigode...")
             time.sleep(5)  
             print("Barbeiro: Bigode cortado!")
-            return "Bigode cortado com sucesso!"
+            return "Bigode cortad!"
 
-def startServidor():
-    servidor = SimpleXMLRPCServer(("localhost", 8000), allow_none=True)
+def startServ():
+    serv = SimpleXMLRPCServer(("localhost", 8000))
     barbeiro = Barbeiro() 
 
-    servidor.register_instance(barbeiro) #registrando o barbeiro no servidor p/ q os clientes possam usar os métodos
+    serv.register_instance(barbeiro) #registrando o barbeiro no servidor p/ q os clientes possam usar os métodos
     
     print("Servidor Barbeiro ativo, aguardando clientes...")
-    servidor.serve_forever()  
+    serv.serve_forever()  
 
 if __name__ == "__main__":
-    startServidor()
+    startServ()
