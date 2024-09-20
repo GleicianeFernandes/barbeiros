@@ -8,21 +8,21 @@ class Barbeiro:
 
     def ctCabelo(self):
         with self.lock: 
-            print("Barbeiro: Cortando cabelo...")
+            print("Barbeiro: Cortando cabelo")
             time.sleep(3)  
             print("Barbeiro: Cabelo cortado!")
             return "Cabelo cortado!"
 
     def ctBarba(self):
         with self.lock:
-            print("Barbeiro: Cortando barba...")
+            print("Barbeiro: Cortando barba")
             time.sleep(4) 
             print("Barbeiro: Barba cortada!")
             return "Barba cortado!"
 
     def ctBigode(self):
         with self.lock:
-            print("Barbeiro: Cortando bigode...")
+            print("Barbeiro: Cortando bigode")
             time.sleep(5)  
             print("Barbeiro: Bigode cortado!")
             return "Bigode cortad!"
@@ -33,7 +33,7 @@ def startServ():
 
     serv.register_instance(barbeiro) #registrando o barbeiro no servidor p/ q os clientes possam usar os métodos
     
-    print("Servidor Barbeiro ativo, aguardando clientes...")
+    print("Servidor Barbeiro ativo")
     serv.serve_forever()  
 
 if __name__ == "__main__":
